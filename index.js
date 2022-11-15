@@ -10,14 +10,14 @@ export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
   appointmentsNode.textContent = ""
 
-  const { data } = await getAppointments()
+  const appointments = await getAppointments()
 
-  data.forEach((appointment, i) =>
+  appointments.forEach((appointment) => {
     appointmentsNode.insertAdjacentHTML(
       "beforeend",
       AppointmentCard(appointment)
     )
-  )
+  })
 
   appointmentsNode.addEventListener("click", async (event) => {
     event.stopImmediatePropagation()
