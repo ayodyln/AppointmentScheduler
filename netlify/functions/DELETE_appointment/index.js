@@ -3,7 +3,7 @@ const db = require("../firestore/FirebaseApp.js")
 exports.handler = async function (event) {
   const body = await JSON.parse(event.body)
 
-  await db.collection("Appointments").doc(body.data).delete()
+  await db.collection("Appointments").doc(body.id).delete()
 
   let data = []
   const snapshot = await db.collection("Appointments").get()

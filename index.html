@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/custom.css" rel="stylesheet/>
     <script src="index.js" type="module" defer></script>
     <link
       rel="shortcut icon"
@@ -78,7 +79,7 @@
       <section class="w-full flex flex-col gap-4">
         <!-- Create Appointment Form -->
         <form
-          class="card bg-primary text-white rounded-lg p-2 shadow-xl gap-4 w-full h-fit"
+          class="card bg-primary text-white rounded-lg p-2 gap-4 w-full h-fit"
           id="createAppointmentForm"
           method="post"
         >
@@ -208,7 +209,9 @@
         </form>
         <!-- End of Appointment Form -->
 
-        <div class="w-full h-1/2 bg-primary rounded-lg shadow-xl text-white p-2">
+        <div
+          class="w-full h-1/2 bg-primary rounded-lg shadow-xl text-white p-2"
+        >
           <p>Current Appointment...</p>
         </div>
       </section>

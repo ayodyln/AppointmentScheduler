@@ -1,9 +1,12 @@
-const db = require("../firestore/FirebaseApp.js")
-
+const db = require("../firestore/FirebaseApp")
+// Status: Completed, Cancelled, Upcoming, Overdue
 exports.handler = async function (event) {
-  console.log(event.body)
+  const body = JSON.parse(event.body)
+  const docRef = db.collection("Appointments").doc(body.id)
+  const res = await docRef.update({ status: body.status })
+
   return {
     statusCode: 200,
-    body: JSON.stringify("Hello World"),
+    body: JSON.stringify(res),
   }
 }

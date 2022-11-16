@@ -1,10 +1,11 @@
 import {
   getAppointments,
   deleteAppointment,
-  cancelAppointment,
+  updateAppointmentStatus,
 } from "./lib/Fetch.js"
 
 import { AppointmentCard } from "./lib/Markup.js"
+import { RenderNotesModal } from "./lib/NotesModal.js"
 
 export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
@@ -29,13 +30,35 @@ export const renderAppointments = async () => {
     }
 
     if (event.target.id === "cancel") {
-      console.log("Cancel")
-      await cancelAppointment(event.target.dataset.id)
+      console.log(`Canceling ${event.target.dataset.id}`)
+      await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
+      reRenderCard(event.target.dataset.id, "Canceled")
+    }
+
+    if (event.target.id === "complete") {
+      console.log(`Completed ${event.target.dataset.id}`)
+      await updateAppointmentStatus(event.target.dataset.id, `Completed`)
+      reRenderCard(event.target.dataset.id, "Completed")
     }
 
     if (event.target.id === "notes") {
       console.log("Notes")
+      RenderNotesModal(event.target.dataset.notes)
     }
   })
 }
 await renderAppointments()
+
+function reRenderCard(id, statusInput, target) {
+  const card = document.querySelector(`#${id}`)
+
+  if (!statusInput) {
+    console.log(id, target)
+    return
+  }
+
+  // Edit Status
+  const statusText =
+    card.children["0"].children["0"].children["3"].children["0"]
+  statusText.textContent = statusInput
+}
