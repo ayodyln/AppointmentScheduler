@@ -24,32 +24,32 @@ export const renderAppointments = async () => {
     event.stopImmediatePropagation()
 
     if (event.target.id === "delete") {
-      console.log(`Deleting Appointment: ${event.target.dataset.id}`)
       event.target.parentElement.parentElement.remove()
       await deleteAppointment(event.target.dataset.id)
     }
 
     if (event.target.id === "cancel") {
-      console.log(`Canceling ${event.target.dataset.id}`)
       await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
       reRenderCard(event.target.dataset.id, "Canceled")
     }
 
     if (event.target.id === "complete") {
-      console.log(`Completed ${event.target.dataset.id}`)
       await updateAppointmentStatus(event.target.dataset.id, `Completed`)
       reRenderCard(event.target.dataset.id, "Completed")
     }
 
     if (event.target.id === "notes") {
-      console.log("Notes")
-      RenderNotesModal(event.target.dataset.notes)
+      // ID, NOTES, NAME
+      RenderNotesModal(
+        event.target.parentElement.parentElement.parentElement.parentElement
+          .parentElement.dataset.id
+      )
     }
   })
 }
 await renderAppointments()
 
-function reRenderCard(id, statusInput, target) {
+export function reRenderCard(id, statusInput, target) {
   const card = document.querySelector(`#${id}`)
 
   if (!statusInput) {

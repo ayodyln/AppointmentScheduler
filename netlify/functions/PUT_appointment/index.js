@@ -3,7 +3,17 @@ const db = require("../firestore/FirebaseApp")
 exports.handler = async function (event) {
   const body = JSON.parse(event.body)
   const docRef = db.collection("Appointments").doc(body.id)
-  const res = await docRef.update({ status: body.status })
+  let res
+
+  if (body.status) {
+    console.log(body.status)
+    res = await docRef.update({ status: body.status })
+  }
+
+  if (body.notes) {
+    console.log(body.notes)
+    res = await docRef.update({ notes: body.notes })
+  }
 
   return {
     statusCode: 200,
