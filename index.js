@@ -1,3 +1,4 @@
+import { EditModal } from "./lib/EditModal.js"
 import {
   getAppointments,
   deleteAppointment,
@@ -13,12 +14,16 @@ export const renderAppointments = async () => {
 
   const appointments = await getAppointments()
 
-  appointments.forEach((appointment) => {
-    appointmentsNode.insertAdjacentHTML(
-      "beforeend",
-      AppointmentCard(appointment)
-    )
-  })
+  appointments
+    .sort((a, b) => {
+      return a.data.date - b.data.date
+    })
+    .forEach((appointment) => {
+      appointmentsNode.insertAdjacentHTML(
+        "beforeend",
+        AppointmentCard(appointment)
+      )
+    })
 
   appointmentsNode.addEventListener("click", async (event) => {
     event.stopImmediatePropagation()
@@ -41,6 +46,14 @@ export const renderAppointments = async () => {
     if (event.target.id === "notes") {
       // ID, NOTES, NAME
       RenderNotesModal(
+        event.target.parentElement.parentElement.parentElement.parentElement
+          .parentElement.dataset.id
+      )
+    }
+
+    if (event.target.id === "edit") {
+      console.log("Edit")
+      await EditModal(
         event.target.parentElement.parentElement.parentElement.parentElement
           .parentElement.dataset.id
       )
