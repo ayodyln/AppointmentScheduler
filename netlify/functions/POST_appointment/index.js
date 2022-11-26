@@ -4,7 +4,7 @@ exports.handler = async function (event) {
   const { name, email, date_ts, notes, status } = await JSON.parse(event.body)
 
   const currDate = new Date()
-  if (currDate.getTime() < date_ts) {
+  if (currDate.getTime() > date_ts) {
     return {
       statusCode: 409,
       data: JSON.stringify({
