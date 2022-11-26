@@ -6,13 +6,19 @@ exports.handler = async function (event) {
   let res
 
   if (body.status) {
-    console.log(body.status)
     res = await docRef.update({ status: body.status })
   }
 
   if (body.notes) {
-    console.log(body.notes)
     res = await docRef.update({ notes: body.notes })
+  }
+
+  if (body.data) {
+    res = await docRef.update({
+      name: body.data.name,
+      email: body.data.email,
+      date: body.data.date,
+    })
   }
 
   return {

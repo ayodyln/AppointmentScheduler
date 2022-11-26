@@ -59,6 +59,8 @@ export const renderAppointments = async () => {
       )
     }
   })
+
+  // HourChecker(appointments)
 }
 await renderAppointments()
 
@@ -74,4 +76,10 @@ export function reRenderCard(id, statusInput, target) {
   const statusText =
     card.children["0"].children["0"].children["3"].children["0"]
   statusText.textContent = statusInput
+}
+
+function HourChecker(appointments) {
+  setInterval(async () => {
+    console.log("Hour Checking...", appointments)
+  }, 1000 * 60)
 }
