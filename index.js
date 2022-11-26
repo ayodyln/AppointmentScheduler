@@ -96,3 +96,17 @@ function HourChecker(appointments) {
     console.log("Hour Checking...", appointments)
   }, 1000 * 60)
 }
+
+//! Events
+const cancelAllBtn = document.querySelector("#cancelAllBtn")
+cancelAllBtn.addEventListener("click", async (event) => {
+  console.log("Canceling All...")
+
+  try {
+    const cancelAll = await fetch("/.netlify/functions/CancelAll_appointments")
+    console.log(await cancelAll.json())
+    await renderAppointments()
+  } catch (error) {
+    console.error(error)
+  }
+})
