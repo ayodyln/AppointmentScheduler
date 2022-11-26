@@ -1,4 +1,5 @@
 import { EditModal } from "./lib/EditModal.js"
+import { EmailModal } from "./lib/EmailModal.js"
 import {
   getAppointments,
   deleteAppointment,
@@ -57,6 +58,11 @@ export const renderAppointments = async () => {
         event.target.parentElement.parentElement.parentElement.parentElement
           .parentElement.dataset.id
       )
+    }
+
+    if (event.target.id === "emailUser") {
+      console.log("Email")
+      await EmailModal(event.target.dataset.email)
     }
   })
 
