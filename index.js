@@ -13,7 +13,9 @@ export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
   appointmentsNode.textContent = ""
 
-  const appointments = await getAppointments()
+  let appointments = []
+
+  appointments = await getAppointments()
 
   appointments
     .sort((a, b) => {
@@ -29,6 +31,7 @@ export const renderAppointments = async () => {
   appointmentsNode.addEventListener("click", async (event) => {
     event.stopImmediatePropagation()
 
+    // TODO: CLEAN UP EVENT TARGETS
     if (event.target.id === "delete") {
       event.target.parentElement.parentElement.remove()
       await deleteAppointment(event.target.dataset.id)
@@ -36,12 +39,16 @@ export const renderAppointments = async () => {
 
     if (event.target.id === "cancel") {
       await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
-      reRenderCard(event.target.dataset.id, "Canceled")
+
+      event.target.parentElement.parentElement.children[0].children[0].children[2].children[0].textContent =
+        "Canceled"
     }
 
     if (event.target.id === "complete") {
       await updateAppointmentStatus(event.target.dataset.id, `Completed`)
-      reRenderCard(event.target.dataset.id, "Completed")
+
+      event.target.parentElement.parentElement.children[0].children[0].children[2].children[0].textContent =
+        "Complete"
     }
 
     if (event.target.id === "notes") {
@@ -70,10 +77,10 @@ export const renderAppointments = async () => {
 }
 await renderAppointments()
 
-export function reRenderCard(id, statusInput, target) {
+export function reRenderCard(id, statusInput) {
   const card = document.querySelector(`#${id}`)
 
-  if (!statusInput) {
+  if (!statusInput && target) {
     console.log(id, target)
     return
   }
