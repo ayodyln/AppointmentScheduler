@@ -76,9 +76,9 @@
     <!-- End of Nav -->
 
     <main
-      class="flex gap-4 w-full h-full max-w-4xl m-auto my-2 overflow-hidden"
+      class="flex gap-4 w-full h-full max-w-4xl max-h-[60rem] m-auto my-2 overflow-x-hidden"
     >
-      <section class="w-full flex flex-col gap-4">
+      <section class="w-full flex flex-col gap-4 h-full">
         <!-- Create Appointment Form -->
         <form
           class="card bg-primary text-white rounded-lg p-2 gap-4 w-full h-fit"
@@ -90,7 +90,7 @@
             <div class="divider m-0 h-1"></div>
           </div>
 
-          <section class="flex flex-col gap-2 w-full fill-primary">
+          <section class="flex flex-col gap-2 w-full fill-primary h-full">
             <div class="form-control">
               <label class="input-group">
                 <span
@@ -225,7 +225,9 @@
       </section>
 
       <!-- Appointment List -->
-      <div class="w-full bg-primary rounded-xl p-2 text-white">
+      <div
+        class="w-full bg-primary rounded-xl p-2 text-white shadow-xl flex flex-col h-full overflow-hidden"
+      >
         <section class="flex justify-end w-full">
           <button id="clearPastDueBtn" class="btn btn-ghost btn-sm">
             Clear Past Due
@@ -240,7 +242,7 @@
 
         <section
           id="appointments"
-          class="w-full rounded-xl flex flex-col gap-4 overflow-auto h-full shadow-xl"
+          class="flex flex-col h-full overflow-auto gap-2 p-2"
         ></section>
       </div>
       <!-- End Appointment List -->
