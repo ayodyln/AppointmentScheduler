@@ -30,22 +30,22 @@ export const renderAppointments = async () => {
   //   })
 
   const appointments = await getAppointments()
-
+  console.log(appointments)
   if (appointments.length === 0) {
     console.error("No Appointments to Sort")
     return
   }
 
-  appointments
-    // .sort((a, b) => {
-    //   return a.data.date - b.data.date
-    // })
-    .forEach((appointment) => {
-      appointmentsNode.insertAdjacentHTML(
-        "beforeend",
-        AppointmentCard(appointment)
-      )
-    })
+  // appointments
+  // .sort((a, b) => {
+  //   return a.data.date - b.data.date
+  // })
+  //   .forEach((appointment) => {
+  //     appointmentsNode.insertAdjacentHTML(
+  //       "beforeend",
+  //       AppointmentCard(appointment)
+  //     )
+  //   })
 
   appointmentsNode.addEventListener("click", async (event) => {
     event.stopImmediatePropagation()
