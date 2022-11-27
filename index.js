@@ -84,7 +84,7 @@ export const renderAppointments = async () => {
 }
 await renderAppointments()
 
-export function reRenderCard(id, statusInput) {
+export async function reRenderCard(id, statusInput) {
   const card = document.querySelector(`#${id}`)
 
   if (!statusInput && target) {
