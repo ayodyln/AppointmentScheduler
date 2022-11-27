@@ -1,4 +1,3 @@
-const db = require("../firestore/FirebaseApp")
 const sgMail = require("@sendgrid/mail")
 
 exports.handler = async function (event) {
