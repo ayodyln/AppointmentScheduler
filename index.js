@@ -37,9 +37,9 @@ export const renderAppointments = async () => {
   }
 
   appointments
-    .sort((a, b) => {
-      return a.data.date - b.data.date
-    })
+    // .sort((a, b) => {
+    //   return a.data.date - b.data.date
+    // })
     .forEach((appointment) => {
       appointmentsNode.insertAdjacentHTML(
         "beforeend",
