@@ -1,13 +1,14 @@
-import { EditModal } from "./lib/EditModal.js"
-import { EmailModal } from "./lib/EmailModal.js"
+import { EditModal } from "./lib/components/EditModal.js"
+import { EmailModal } from "./lib/components/EmailModal.js"
 import {
   getAppointments,
   deleteAppointment,
   updateAppointmentStatus,
-} from "./lib/Fetch.js"
+} from "./lib/Handlers/Fetch.js"
 
-import { AppointmentCard } from "./lib/Markup.js"
-import { RenderNotesModal } from "./lib/NotesModal.js"
+import { AppointmentCard } from "./lib/components/AppointmentCard.js"
+import { RenderNotesModal } from "./lib/components/NotesModal.js"
+import { RescheduleModal } from "./lib/components/RescheduleModal.js"
 
 export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
@@ -39,16 +40,12 @@ export const renderAppointments = async () => {
 
     if (event.target.id === "cancel") {
       await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
-
-      event.target.parentElement.parentElement.children[0].children[0].children[2].children[0].textContent =
-        "Canceled"
+      reRenderCard(event.target.dataset.id, "Canceled")
     }
 
     if (event.target.id === "complete") {
       await updateAppointmentStatus(event.target.dataset.id, `Completed`)
-
-      event.target.parentElement.parentElement.children[0].children[0].children[2].children[0].textContent =
-        "Complete"
+      reRenderCard(event.target.dataset.id, "Completed")
     }
 
     if (event.target.id === "notes") {
@@ -71,6 +68,11 @@ export const renderAppointments = async () => {
       console.log("Email")
       await EmailModal(event.target.dataset.email)
     }
+
+    if (event.target.id === "reschedule") {
+      console.log("Reschedule")
+      await RescheduleModal(event.target.dataset.id)
+    }
   })
 
   // HourChecker(appointments)
@@ -85,10 +87,8 @@ export function reRenderCard(id, statusInput) {
     return
   }
 
-  // Edit Status
-  const statusText =
-    card.children["0"].children["0"].children["3"].children["0"]
-  statusText.textContent = statusInput
+  // Edit Status Section of Card
+  card.children[0].children[0].children[2].children[0].textContent = statusInput
 }
 
 function HourChecker(appointments) {
@@ -101,10 +101,8 @@ function HourChecker(appointments) {
 const cancelAllBtn = document.querySelector("#cancelAllBtn")
 cancelAllBtn.addEventListener("click", async (event) => {
   console.log("Canceling All...")
-
   try {
     const cancelAll = await fetch("/.netlify/functions/CancelAll_appointments")
-    console.log(await cancelAll.json())
     await renderAppointments()
   } catch (error) {
     console.error(error)

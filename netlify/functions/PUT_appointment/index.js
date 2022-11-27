@@ -13,10 +13,16 @@ exports.handler = async function (event) {
     res = await docRef.update({ notes: body.notes })
   }
 
-  if (body.data) {
+  if (body.data && !body.data.date) {
     res = await docRef.update({
       name: body.data.name,
       email: body.data.email,
+      // date: body.data.date,
+    })
+  }
+
+  if (body.data.date) {
+    res = await docRef.update({
       date: body.data.date,
     })
   }
