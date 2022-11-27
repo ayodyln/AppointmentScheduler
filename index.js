@@ -80,7 +80,7 @@ export const renderAppointments = async () => {
     }
   })
 
-  // HourChecker(appointments)
+  HourChecker(appointments)
 }
 await renderAppointments()
 
@@ -97,9 +97,40 @@ export async function reRenderCard(id, statusInput) {
 }
 
 function HourChecker(appointments) {
-  setInterval(async () => {
-    console.log("Hour Checking...", appointments)
-  }, 1000 * 60)
+  console.log("Hour Checking...", appointments)
+
+  const currentDate = new Date()
+  currentDate.setMinutes(0)
+  currentDate.setSeconds(0)
+  currentDate.setMilliseconds(0)
+  const compareDate = new Date()
+  compareDate.setHours(currentDate.getHours() + 1)
+  compareDate.setMinutes(0)
+  compareDate.setSeconds(0)
+  compareDate.setMilliseconds(0)
+
+  // Time Defaults
+  // console.log(`CurrentDate: ${currentDate}`)
+  // console.log(`CompareDate: ${compareDate}`)
+
+  appointments.forEach(async (appointment) => {
+    const appointmentDate = new Date(appointment.data.date)
+
+    if (currentDate.getTime() > appointment.data.date) {
+      console.log(`Past Due: ${appointment.id}`)
+      await updateAppointmentStatus(appointment.id, `Past Due`)
+      reRenderCard(appointment.id, "Past Due")
+    }
+
+    if (
+      currentDate.getTime() <= appointment.data.date &&
+      appointmentDate.getHours() < compareDate.getHours()
+    ) {
+      console.log(appointment)
+      await updateAppointmentStatus(appointment.id, `Current`)
+      reRenderCard(appointment.id, "Current")
+    }
+  })
 }
 
 //! Events
