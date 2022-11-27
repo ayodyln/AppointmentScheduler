@@ -14,9 +14,27 @@ export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
   appointmentsNode.textContent = ""
 
-  let appointments = []
+  // let appointments = []
 
-  appointments = await getAppointments()
+  // appointments = await getAppointments()
+
+  // appointments
+  //   .sort((a, b) => {
+  //     return a.data.date - b.data.date
+  //   })
+  //   .forEach((appointment) => {
+  //     appointmentsNode.insertAdjacentHTML(
+  //       "beforeend",
+  //       AppointmentCard(appointment)
+  //     )
+  //   })
+
+  const appointments = await getAppointments()
+
+  if (appointments.length === 0) {
+    console.error("No Appointments to Sort")
+    return
+  }
 
   appointments
     .sort((a, b) => {
