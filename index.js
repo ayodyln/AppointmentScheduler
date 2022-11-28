@@ -5,12 +5,10 @@ import {
   deleteAppointment,
   updateAppointmentStatus,
 } from "./lib/Handlers/Fetch.js"
-
 import { AppointmentCard } from "./lib/components/AppointmentCard.js"
 import { RenderNotesModal } from "./lib/components/NotesModal.js"
 import { RescheduleModal } from "./lib/components/RescheduleModal.js"
 import { reRenderCard } from "./lib/func/ReRenderCard.js"
-
 import { checkAppointmentStatus } from "./lib/func/CheckAppointmentStatus.js"
 
 export const renderAppointments = async () => {
