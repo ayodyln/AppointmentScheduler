@@ -6,10 +6,9 @@ exports.handler = async function (event) {
   let res
   if (body.status) {
     res = await docRef.update({ status: body.status })
-
     return {
       statusCode: 200,
-      body: JSON.stringify(res),
+      body: JSON.stringify({ status: body.status }),
     }
   }
 

@@ -6,7 +6,10 @@ import {
   updateAppointmentStatus,
 } from "./lib/Handlers/Fetch.js"
 
-import { AppointmentCard } from "./lib/components/AppointmentCard.js"
+import {
+  AppointmentCard,
+  appointmentStatusStyle,
+} from "./lib/components/AppointmentCard.js"
 import { RenderNotesModal } from "./lib/components/NotesModal.js"
 import { RescheduleModal } from "./lib/components/RescheduleModal.js"
 import { dateComparing } from "./lib/func/Date.js"
@@ -81,34 +84,43 @@ export const renderAppointments = async () => {
     }
   })
 
+  checkAppointmentStatus(appointments)
   HourChecker(appointments)
 }
 await renderAppointments()
 
 export function reRenderCard(id, statusInput) {
-  const card = document.getElementById(id)
-  // Edit Status Section of Card
+  const card = document.getElementById(`${id}`)
+  card.children[0].children[0].children[2].children[0].className = `rounded-lg ${appointmentStatusStyle(
+    statusInput
+  )} w-1/3 h-full flex justify-center items-center`
+
   card.children[0].children[0].children[2].children[0].textContent = statusInput
 }
 
 function HourChecker(appointments) {
-  console.log("Hour Checking...", appointments)
+  setInterval(async () => {
+    console.log("Hour Checking...", appointments)
+    await checkAppointmentStatus(appointments)
+  }, 1000 * 60 * 60)
+}
+
+export async function checkAppointmentStatus(appointments) {
+  // if (!appointments) appointments = await getAppointments()
 
   appointments.forEach(async (appointment) => {
     const { appointmentDate, currentDate, compareDate } = await dateComparing(
       appointment.data.date
     )
-    // console.log(currentDate, appointmentDate, compareDate)
 
     //REDO LOGIC HERE
     if (
       appointmentDate.getTime() <= currentDate.getTime() &&
       currentDate.getTime() >= compareDate.getTime()
     ) {
-      console.log("Past Due", appointment.data)
-
-      await updateAppointmentStatus(appointment.id, `Past Due`)
-      reRenderCard(appointment.id, "Past Due")
+      if (appointment.data.status === "PastDue") return
+      await updateAppointmentStatus(appointment.id, `PastDue`)
+      reRenderCard(appointment.id, "PastDue")
 
       return
     }
@@ -117,7 +129,12 @@ function HourChecker(appointments) {
       appointmentDate.getTime() <= currentDate.getTime() &&
       currentDate.getTime() <= compareDate.getTime()
     ) {
-      console.log("Current", appointment.data)
+      if (
+        appointment.data.status === "Current" ||
+        appointment.data.status === "Completed" ||
+        appointment.data.status === "Canceled"
+      )
+        return
 
       await updateAppointmentStatus(appointment.id, `Current`)
       reRenderCard(appointment.id, "Current")
@@ -126,7 +143,12 @@ function HourChecker(appointments) {
     }
 
     if (currentDate.getTime() < compareDate.getTime()) {
-      console.log("Upcoming", appointment.data)
+      if (
+        appointment.data.status === "Upcoming" ||
+        appointment.data.status === "Completed" ||
+        appointment.data.status === "Canceled"
+      )
+        return
 
       await updateAppointmentStatus(appointment.id, `Upcoming`)
       reRenderCard(appointment.id, "Upcoming")
