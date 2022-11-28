@@ -7,7 +7,7 @@ exports.handler = async function (event) {
   if (currDate.getTime() > date_ts) {
     return {
       statusCode: 409,
-      data: JSON.stringify({
+      body: JSON.stringify({
         msg: "Date Not Valid",
       }),
     }

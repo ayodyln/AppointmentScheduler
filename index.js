@@ -6,13 +6,12 @@ import {
   updateAppointmentStatus,
 } from "./lib/Handlers/Fetch.js"
 
-import {
-  AppointmentCard,
-  appointmentStatusStyle,
-} from "./lib/components/AppointmentCard.js"
+import { AppointmentCard } from "./lib/components/AppointmentCard.js"
 import { RenderNotesModal } from "./lib/components/NotesModal.js"
 import { RescheduleModal } from "./lib/components/RescheduleModal.js"
-import { dateComparing } from "./lib/func/Date.js"
+import { reRenderCard } from "./lib/func/ReRenderCard.js"
+
+import { checkAppointmentStatus } from "./lib/func/CheckAppointmentStatus.js"
 
 export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
@@ -38,6 +37,8 @@ export const renderAppointments = async () => {
       )
     })
 
+  checkAppointmentStatus(appointments)
+
   appointmentsNode.addEventListener("click", async (event) => {
     event.stopImmediatePropagation()
 
@@ -48,11 +49,21 @@ export const renderAppointments = async () => {
     }
 
     if (event.target.id === "cancel") {
+      if (
+        event.target.parentElement.parentElement.dataset.status === "Canceled"
+      )
+        return
+
       await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
       reRenderCard(event.target.dataset.id, "Canceled")
     }
 
     if (event.target.id === "complete") {
+      if (
+        event.target.parentElement.parentElement.dataset.status === "Completed"
+      )
+        return
+
       await updateAppointmentStatus(event.target.dataset.id, `Completed`)
       reRenderCard(event.target.dataset.id, "Completed")
     }
@@ -83,80 +94,9 @@ export const renderAppointments = async () => {
       await RescheduleModal(event.target.dataset.id)
     }
   })
-
-  checkAppointmentStatus(appointments)
-  HourChecker(appointments)
 }
 await renderAppointments()
-
-export function reRenderCard(id, statusInput) {
-  const card = document.getElementById(`${id}`)
-  card.children[0].children[0].children[2].children[0].className = `rounded-lg ${appointmentStatusStyle(
-    statusInput
-  )} w-1/3 h-full flex justify-center items-center`
-
-  card.children[0].children[0].children[2].children[0].textContent = statusInput
-}
-
-function HourChecker(appointments) {
-  setInterval(async () => {
-    console.log("Hour Checking...", appointments)
-    await checkAppointmentStatus(appointments)
-  }, 1000 * 60 * 60)
-}
-
-export async function checkAppointmentStatus(appointments) {
-  // if (!appointments) appointments = await getAppointments()
-
-  appointments.forEach(async (appointment) => {
-    const { appointmentDate, currentDate, compareDate } = await dateComparing(
-      appointment.data.date
-    )
-
-    //REDO LOGIC HERE
-    if (
-      appointmentDate.getTime() <= currentDate.getTime() &&
-      currentDate.getTime() >= compareDate.getTime()
-    ) {
-      if (appointment.data.status === "PastDue") return
-      await updateAppointmentStatus(appointment.id, `PastDue`)
-      reRenderCard(appointment.id, "PastDue")
-
-      return
-    }
-
-    if (
-      appointmentDate.getTime() <= currentDate.getTime() &&
-      currentDate.getTime() <= compareDate.getTime()
-    ) {
-      if (
-        appointment.data.status === "Current" ||
-        appointment.data.status === "Completed" ||
-        appointment.data.status === "Canceled"
-      )
-        return
-
-      await updateAppointmentStatus(appointment.id, `Current`)
-      reRenderCard(appointment.id, "Current")
-
-      return
-    }
-
-    if (currentDate.getTime() < compareDate.getTime()) {
-      if (
-        appointment.data.status === "Upcoming" ||
-        appointment.data.status === "Completed" ||
-        appointment.data.status === "Canceled"
-      )
-        return
-
-      await updateAppointmentStatus(appointment.id, `Upcoming`)
-      reRenderCard(appointment.id, "Upcoming")
-
-      return
-    }
-  })
-}
+// HourChecker(appointments)
 
 //! Events
 const cancelAllBtn = document.querySelector("#cancelAllBtn")
@@ -169,3 +109,10 @@ cancelAllBtn.addEventListener("click", async (event) => {
     console.error(error)
   }
 })
+
+function HourChecker(appointments) {
+  setInterval(async () => {
+    console.log("Hour Checking...", appointments)
+    await checkAppointmentStatus(appointments)
+  }, 1000 * 60 * 60)
+}
