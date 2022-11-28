@@ -2009,9 +2009,21 @@ html {
   border-radius: var(--rounded-box, 1rem);
 }
 
+.\!card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: var(--rounded-box, 1rem) !important;
+}
+
 .card:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.\!card:focus {
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
 }
 
 .card-body {
@@ -2039,8 +2051,18 @@ html {
   justify-content: center;
 }
 
+.\!card figure {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .card.image-full {
   display: grid;
+}
+
+.\!card.image-full {
+  display: grid !important;
 }
 
 .card.image-full:before {
@@ -2053,10 +2075,26 @@ html {
   border-radius: var(--rounded-box, 1rem);
 }
 
+.\!card.image-full:before {
+  position: relative !important;
+  content: "" !important;
+  z-index: 10 !important;
+  --tw-bg-opacity: 1 !important;
+  background-color: hsl(var(--n) / var(--tw-bg-opacity)) !important;
+  opacity: 0.75 !important;
+  border-radius: var(--rounded-box, 1rem) !important;
+}
+
 .card.image-full:before,
     .card.image-full > * {
   grid-column-start: 1;
   grid-row-start: 1;
+}
+
+.\!card.image-full:before,
+    .\!card.image-full > * {
+  grid-column-start: 1 !important;
+  grid-row-start: 1 !important;
 }
 
 .card.image-full > figure img {
@@ -2065,11 +2103,24 @@ html {
      object-fit: cover;
 }
 
+.\!card.image-full > figure img {
+  height: 100% !important;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
+}
+
 .card.image-full > .card-body {
   position: relative;
   z-index: 20;
   --tw-text-opacity: 1;
   color: hsl(var(--nc) / var(--tw-text-opacity));
+}
+
+.\!card.image-full > .card-body {
+  position: relative !important;
+  z-index: 20 !important;
+  --tw-text-opacity: 1 !important;
+  color: hsl(var(--nc) / var(--tw-text-opacity)) !important;
 }
 
 .carousel {
@@ -4481,6 +4532,14 @@ html {
   border-end-end-radius: unset;
 }
 
+.\!card :where(figure:first-child) {
+  overflow: hidden !important;
+  border-start-start-radius: inherit !important;
+  border-start-end-radius: inherit !important;
+  border-end-start-radius: unset !important;
+  border-end-end-radius: unset !important;
+}
+
 .card :where(figure:last-child) {
   overflow: hidden;
   border-start-start-radius: unset;
@@ -4489,15 +4548,34 @@ html {
   border-end-end-radius: inherit;
 }
 
+.\!card :where(figure:last-child) {
+  overflow: hidden !important;
+  border-start-start-radius: unset !important;
+  border-start-end-radius: unset !important;
+  border-end-start-radius: inherit !important;
+  border-end-end-radius: inherit !important;
+}
+
 .card:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+.\!card:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px !important;
 }
 
 .card.bordered {
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: hsl(var(--b2, var(--b1)) / var(--tw-border-opacity));
+}
+
+.\!card.bordered {
+  border-width: 1px !important;
+  --tw-border-opacity: 1 !important;
+  border-color: hsl(var(--b2, var(--b1)) / var(--tw-border-opacity)) !important;
 }
 
 .card-bordered {
@@ -4512,6 +4590,12 @@ html {
   line-height: 1.25rem;
 }
 
+.\!card.compact .card-body {
+  padding: 1rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+
 .card-title {
   display: flex;
   align-items: center;
@@ -4524,6 +4608,11 @@ html {
 .card.image-full :where(figure) {
   overflow: hidden;
   border-radius: inherit;
+}
+
+.\!card.image-full :where(figure) {
+  overflow: hidden !important;
+  border-radius: inherit !important;
 }
 
 .carousel::-webkit-scrollbar {
@@ -8859,10 +8948,6 @@ html {
   height: 9rem;
 }
 
-.h-1\/2 {
-  height: 50%;
-}
-
 .h-4 {
   height: 1rem;
 }
@@ -8923,36 +9008,16 @@ html {
   height: 30rem;
 }
 
+.max-h-\[60rem\] {
+  max-height: 60rem;
+}
+
 .max-h-2 {
   max-height: 0.5rem;
 }
 
 .max-h-96 {
   max-height: 24rem;
-}
-
-.max-h-\[\] {
-  max-height: ;
-}
-
-.max-h-\[27\] {
-  max-height: 27;
-}
-
-.max-h-\[70\] {
-  max-height: 70;
-}
-
-.max-h-\[70rem\] {
-  max-height: 70rem;
-}
-
-.max-h-\[66rem\] {
-  max-height: 66rem;
-}
-
-.max-h-\[60rem\] {
-  max-height: 60rem;
 }
 
 .min-h-fit {

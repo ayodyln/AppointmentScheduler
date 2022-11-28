@@ -9,6 +9,7 @@ import {
 import { AppointmentCard } from "./lib/components/AppointmentCard.js"
 import { RenderNotesModal } from "./lib/components/NotesModal.js"
 import { RescheduleModal } from "./lib/components/RescheduleModal.js"
+import { dateComparing } from "./lib/func/Date.js"
 
 export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
@@ -84,14 +85,8 @@ export const renderAppointments = async () => {
 }
 await renderAppointments()
 
-export async function reRenderCard(id, statusInput) {
-  const card = document.querySelector(`#${id}`)
-
-  if (!statusInput && target) {
-    console.log(id, target)
-    return
-  }
-
+export function reRenderCard(id, statusInput) {
+  const card = document.getElementById(id)
   // Edit Status Section of Card
   card.children[0].children[0].children[2].children[0].textContent = statusInput
 }
@@ -99,36 +94,44 @@ export async function reRenderCard(id, statusInput) {
 function HourChecker(appointments) {
   console.log("Hour Checking...", appointments)
 
-  const currentDate = new Date()
-  currentDate.setMinutes(0)
-  currentDate.setSeconds(0)
-  currentDate.setMilliseconds(0)
-  const compareDate = new Date()
-  compareDate.setHours(currentDate.getHours() + 1)
-  compareDate.setMinutes(0)
-  compareDate.setSeconds(0)
-  compareDate.setMilliseconds(0)
-
-  // Time Defaults
-  // console.log(`CurrentDate: ${currentDate}`)
-  // console.log(`CompareDate: ${compareDate}`)
-
   appointments.forEach(async (appointment) => {
-    const appointmentDate = new Date(appointment.data.date)
+    const { appointmentDate, currentDate, compareDate } = await dateComparing(
+      appointment.data.date
+    )
+    // console.log(currentDate, appointmentDate, compareDate)
 
-    if (currentDate.getTime() > appointment.data.date) {
-      console.log(`Past Due: ${appointment.id}`)
+    //REDO LOGIC HERE
+    if (
+      appointmentDate.getTime() <= currentDate.getTime() &&
+      currentDate.getTime() >= compareDate.getTime()
+    ) {
+      console.log("Past Due", appointment.data)
+
       await updateAppointmentStatus(appointment.id, `Past Due`)
       reRenderCard(appointment.id, "Past Due")
+
+      return
     }
 
     if (
-      currentDate.getTime() <= appointment.data.date &&
-      appointmentDate.getHours() < compareDate.getHours()
+      appointmentDate.getTime() <= currentDate.getTime() &&
+      currentDate.getTime() <= compareDate.getTime()
     ) {
-      console.log(appointment)
+      console.log("Current", appointment.data)
+
       await updateAppointmentStatus(appointment.id, `Current`)
       reRenderCard(appointment.id, "Current")
+
+      return
+    }
+
+    if (currentDate.getTime() < compareDate.getTime()) {
+      console.log("Upcoming", appointment.data)
+
+      await updateAppointmentStatus(appointment.id, `Upcoming`)
+      reRenderCard(appointment.id, "Upcoming")
+
+      return
     }
   })
 }
@@ -138,7 +141,7 @@ const cancelAllBtn = document.querySelector("#cancelAllBtn")
 cancelAllBtn.addEventListener("click", async (event) => {
   console.log("Canceling All...")
   try {
-    const cancelAll = await fetch("/.netlify/functions/CancelAll_appointments")
+    await fetch("/.netlify/functions/CancelAll_appointments")
     await renderAppointments()
   } catch (error) {
     console.error(error)
