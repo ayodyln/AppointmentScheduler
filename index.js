@@ -66,7 +66,7 @@ async function CardEvents(event) {
 
   // TODO: CLEAN UP EVENT TARGETS
   if (event.target.id === "delete") {
-    document.querySelector(`#${event.target.dataset.id}`).remove()
+    document.getElementById(`${event.target.dataset.id}`).remove()
     await deleteAppointment(event.target.dataset.id)
   }
 
