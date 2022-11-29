@@ -1,13 +1,15 @@
-import { EditModal } from "./lib/components/EditModal.js"
-import { EmailModal } from "./lib/components/EmailModal.js"
 import {
   getAppointments,
   deleteAppointment,
   updateAppointmentStatus,
 } from "./lib/Handlers/Fetch.js"
-import { AppointmentCard } from "./lib/components/AppointmentCard.js"
-import { RenderNotesModal } from "./lib/components/NotesModal.js"
-import { RescheduleModal } from "./lib/components/RescheduleModal.js"
+import AppointmentCard from "./lib/components/AppointmentCard.js"
+import {
+  EditModal,
+  EmailModal,
+  RenderNotesModal,
+  RescheduleModal,
+} from "./lib/components/Modals.js"
 import { reRenderCard } from "./lib/func/ReRenderCard.js"
 import { checkAppointmentStatus } from "./lib/func/CheckAppointmentStatus.js"
 
@@ -15,9 +17,7 @@ export const renderAppointments = async () => {
   const appointmentsNode = document.querySelector("#appointments")
   appointmentsNode.textContent = ""
 
-  let appointments = []
-
-  appointments = await getAppointments()
+  const appointments = await getAppointments()
 
   if (appointments.length === 0) {
     console.error("No Appointments to Sort")
@@ -37,61 +37,7 @@ export const renderAppointments = async () => {
 
   checkAppointmentStatus(appointments)
 
-  appointmentsNode.addEventListener("click", async (event) => {
-    event.stopImmediatePropagation()
-
-    // TODO: CLEAN UP EVENT TARGETS
-    if (event.target.id === "delete") {
-      event.target.parentElement.parentElement.remove()
-      await deleteAppointment(event.target.dataset.id)
-    }
-
-    if (event.target.id === "cancel") {
-      if (
-        event.target.parentElement.parentElement.dataset.status === "Canceled"
-      )
-        return
-
-      await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
-      reRenderCard(event.target.dataset.id, "Canceled")
-    }
-
-    if (event.target.id === "complete") {
-      if (
-        event.target.parentElement.parentElement.dataset.status === "Completed"
-      )
-        return
-
-      await updateAppointmentStatus(event.target.dataset.id, `Completed`)
-      reRenderCard(event.target.dataset.id, "Completed")
-    }
-
-    if (event.target.id === "notes") {
-      // ID, NOTES, NAME
-      RenderNotesModal(
-        event.target.parentElement.parentElement.parentElement.parentElement
-          .parentElement.dataset.id
-      )
-    }
-
-    if (event.target.id === "edit") {
-      console.log("Edit")
-      await EditModal(
-        event.target.parentElement.parentElement.parentElement.parentElement
-          .parentElement.dataset.id
-      )
-    }
-
-    if (event.target.id === "emailUser") {
-      console.log("Email")
-      await EmailModal(event.target.dataset.email)
-    }
-
-    if (event.target.id === "reschedule") {
-      console.log("Reschedule")
-      await RescheduleModal(event.target.dataset.id)
-    }
-  })
+  appointmentsNode.addEventListener("click", CardEvents)
 }
 await renderAppointments()
 // HourChecker(appointments)
@@ -113,4 +59,43 @@ function HourChecker(appointments) {
     console.log("Hour Checking...", appointments)
     await checkAppointmentStatus(appointments)
   }, 1000 * 60 * 60)
+}
+
+async function CardEvents(event) {
+  event.stopImmediatePropagation()
+
+  // TODO: CLEAN UP EVENT TARGETS
+  if (event.target.id === "delete") {
+    document.querySelector(`#${event.target.dataset.id}`).remove()
+    await deleteAppointment(event.target.dataset.id)
+  }
+
+  if (event.target.id === "cancel") {
+    // Checking for if the item is already desired Status; Returning if need be to save data calls.
+    if (
+      document.querySelector(`#${event.target.dataset.id}`).dataset.status ===
+      "Canceled"
+    )
+      return
+
+    await updateAppointmentStatus(event.target.dataset.id, `Canceled`)
+    reRenderCard(event.target.dataset.id, "Canceled")
+  }
+
+  if (event.target.id === "complete") {
+    // Checking for if the item is already desired Status; Returning if need be to save data calls.
+    if (
+      document.querySelector(`#${event.target.dataset.id}`).dataset.status ===
+      "Completed"
+    )
+      return
+
+    await updateAppointmentStatus(event.target.dataset.id, `Completed`)
+    reRenderCard(event.target.dataset.id, "Completed")
+  }
+
+  if (event.target.id === "notes") RenderNotesModal(event.target.dataset.id)
+  if (event.target.id === "edit") EditModal(event.target.dataset.id)
+  if (event.target.id === "emailUser") EmailModal(event.target.dataset.email)
+  if (event.target.id === "reschedule") RescheduleModal(event.target.dataset.id)
 }
