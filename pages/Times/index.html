@@ -13,7 +13,7 @@
       type="image/x-icon"
     />
 
-    <title>Appointment History</title>
+    <title>Appointments</title>
   </head>
   <body class="bg-white flex flex-col h-screen w-screen">
     <nav class="navbar bg-primary text-white">
@@ -43,10 +43,10 @@
               <a href="/index.html">Appointments</a>
             </li>
             <li>
-              <a href="/pages/Times/index.html">Availability</a>
+              <a>Availability</a>
             </li>
             <li>
-              <a>History</a>
+              <a href="/pages/History/index.html">History</a>
             </li>
           </ul>
         </div>
@@ -71,45 +71,15 @@
             <a href="/index.html">Appointments</a>
           </li>
           <li>
-            <a href="/pages/Times/index.html">Availability</a>
+            <a>Availability</a>
           </li>
           <li>
-            <a>History</a>
+            <a href="/pages/History/index.html">History</a>
           </li>
         </ul>
       </div>
     </nav>
 
-    <main
-      class="flex flex-col w-full h-full max-w-2xl max-h-[60rem] m-auto my-2 overflow-x-hidden"
-    >
-      <div
-        id="historyCTAs"
-        class="w-full bg-base-200 p-2 flex justify-between items-center"
-      >
-        <h1 class="text-xl">History</h1>
-        <section>
-          <button class="btn btn-primary btn-sm">Refresh</button>
-        </section>
-      </div>
-
-      <div id="historyDiv" class="h-full bg-base-300 p-2">
-        <div class="overflow-x-auto h-full">
-          <table class="table table-zebra w-full">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-
-            <tbody id="tableBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </main>
+    <div id="AvailableTimes"></div>
   </body>
 </html>

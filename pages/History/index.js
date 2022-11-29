@@ -11,7 +11,6 @@ export const renderHistoryPage = async () => {
   }
 
   history.forEach((item, index) => {
-    console.log(item)
     tableBody.insertAdjacentHTML("beforeend", renderTableRow(item, index))
   })
 }
@@ -19,7 +18,6 @@ renderHistoryPage()
 
 const renderTableRow = (data, index) => {
   const date = new Date(data.data.date._seconds * 1000)
-  console.log(date)
 
   const dateStr = `${date.getFullYear()}-${
     date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
