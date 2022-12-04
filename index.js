@@ -78,10 +78,9 @@ clearListBtn.addEventListener("click", async (event) => {
     (appointment) => appointment.data.status !== "Upcoming"
   )
 
-  console.log(filtered)
-
-  filtered.forEach(appointment => {
-    
+  filtered.forEach(async (appointment) => {
+    document.getElementById(appointment.id).remove()
+    await deleteAppointment(appointment.id)
   })
 })
 
