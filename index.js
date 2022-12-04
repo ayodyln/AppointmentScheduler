@@ -73,7 +73,7 @@ async function CardEvents(event) {
   if (event.target.id === "cancel") {
     // Checking for if the item is already desired Status; Returning if need be to save data calls.
     if (
-      document.querySelector(`#${event.target.dataset.id}`).dataset.status ===
+      document.getElementById(`${event.target.dataset.id}`).dataset.status ===
       "Canceled"
     )
       return
@@ -85,7 +85,7 @@ async function CardEvents(event) {
   if (event.target.id === "complete") {
     // Checking for if the item is already desired Status; Returning if need be to save data calls.
     if (
-      document.querySelector(`#${event.target.dataset.id}`).dataset.status ===
+      document.getElementById(`${event.target.dataset.id}`).dataset.status ===
       "Completed"
     )
       return
