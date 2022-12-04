@@ -87,9 +87,7 @@
     </nav>
     <!-- End of Nav -->
 
-    <main
-      class="flex gap-4 w-full h-full max-w-4xl max-h-[60rem] m-auto my-2 overflow-x-hidden"
-    >
+    <main class="flex gap-4 w-full h-full max-w-4xl m-auto p-2">
       <section class="w-full flex flex-col gap-4 h-full">
         <!-- Create Appointment Form -->
         <form
@@ -99,7 +97,6 @@
         >
           <div>
             <h1 class="text-2xl">Create Appointment</h1>
-            <div class="divider m-0 h-1"></div>
           </div>
 
           <section class="flex flex-col gap-2 w-full fill-primary h-full">
@@ -198,26 +195,17 @@
                     /></svg
                 ></span>
 
-                <select class="input w-5/6 text-primary" name="time" id="time">
-                  <option selected>Select a time...</option>
-                  <option value="10:00">10:00 AM</option>
-                  <option value="11:00">11:00 AM</option>
-                  <option value="12:00">12:00 PM</option>
-                  <option value="13:00">13:00 PM</option>
-                  <option value="14:00">14:00 PM</option>
-                  <option value="15:00">15:00 PM</option>
-                  <option value="16:00">16:00 PM</option>
-                  <option value="17:00">17:00 PM</option>
-                  <option value="18:00">18:00 PM</option>
-                  <option value="19:00">19:00 PM</option>
-                  <option value="12:00">20:00 PM</option>
-                </select>
+                <select
+                  class="input w-5/6 text-primary"
+                  name="time"
+                  id="time"
+                ></select>
               </label>
             </div>
 
             <textarea
               name="notes"
-              class="textarea w-full h-36 text-neutral resize-none"
+              class="textarea w-full h-32 text-neutral resize-none"
               placeholder="Notes..."
             ></textarea>
           </section>
@@ -242,11 +230,15 @@
 
       <!-- Appointment List -->
       <div
-        class="w-full bg-primary rounded-xl p-2 text-white shadow-xl flex flex-col h-full overflow-hidden"
+        class="w-full bg-primary rounded-xl p-2 text-white shadow-xl flex flex-col h-[40rem]"
       >
         <section class="flex justify-end w-full">
-          <button id="clearPastDueBtn" class="btn btn-ghost btn-sm">
-            Clear Past Due
+          <button
+            id="clearPastDueBtn"
+            class="btn btn-ghost btn-sm tooltip"
+            data-tip="Clean List"
+          >
+            Clear List
           </button>
           <button id="cancelAllBtn" class="btn btn-ghost btn-sm">
             Cancel All
@@ -256,10 +248,12 @@
 
         <div class="divider m-0 h-4"></div>
 
-        <section
-          id="appointments"
-          class="flex flex-col h-full overflow-auto gap-2 p-2"
-        ></section>
+        <div class="overflow-hidden h-full flex">
+          <section
+            id="appointments"
+            class="flex flex-col h-full overflow-auto gap-2 p-2"
+          ></section>
+        </div>
       </div>
       <!-- End Appointment List -->
     </main>

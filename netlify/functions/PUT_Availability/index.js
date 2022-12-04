@@ -6,7 +6,7 @@ exports.handler = async function (event) {
 
   const ref = db.collection("AvailableTimes").doc(body.id)
 
-  const res = await ref.update({
+  await ref.update({
     active: currentReference.body.active ? false : true,
   })
 

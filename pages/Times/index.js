@@ -5,20 +5,18 @@ import {
 
 export const renderAvailabilityPage = async () => {
   const AvailableTimesDiv = document.querySelector("#AvailableTimes")
-  const data = await getAvailability()
-  console.log(data)
+  const Times = await getAvailability()
+  console.log(Times)
 
   AvailableTimesDiv.textContent = ""
 
-  data
-    .sort((a, b) => a.body.id - b.body.id)
-    .forEach((time, index, array) => {
-      AvailableTimesDiv.insertAdjacentHTML("beforeend", timeCardMarkup(time))
-    })
+  Times.sort((a, b) => a.body.id - b.body.id).forEach((time) => {
+    AvailableTimesDiv.insertAdjacentHTML("beforeend", timeCardMarkup(time))
+  })
 
   AvailableTimesDiv.addEventListener("click", async (event) => {
     if (event.target.id === "toggle") {
-      toggleActive(event.target.dataset.id, data)
+      toggleActive(event.target.dataset.id, Times)
     }
   })
 }
@@ -38,7 +36,6 @@ const toggleActive = async (id, array) => {
   // Grab current status
   const currentTimeObject = array.find((time) => id === time.id)
   const data = await updateAvailability(id, currentTimeObject)
-
   console.log(data)
 }
 

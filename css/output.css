@@ -9017,6 +9017,50 @@ html {
   height: 30rem;
 }
 
+.h-60 {
+  height: 15rem;
+}
+
+.h-\[100\%\] {
+  height: 100%;
+}
+
+.h-\[10\] {
+  height: 10;
+}
+
+.h-1\/4 {
+  height: 25%;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
+.h-\[\] {
+  height: ;
+}
+
+.h-\[70rem\] {
+  height: 70rem;
+}
+
+.h-\[5\] {
+  height: 5;
+}
+
+.h-\[50rem\] {
+  height: 50rem;
+}
+
+.h-\[4\] {
+  height: 4;
+}
+
+.h-\[40rem\] {
+  height: 40rem;
+}
+
 .max-h-\[60rem\] {
   max-height: 60rem;
 }
@@ -12139,6 +12183,10 @@ html {
 
 .p-16 {
   padding: 4rem;
+}
+
+.p-\[4px\] {
+  padding: 4px;
 }
 
 .px-0 {
