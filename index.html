@@ -88,10 +88,10 @@
     <!-- End of Nav -->
 
     <main class="flex gap-4 w-full h-full max-w-4xl m-auto p-2">
-      <section class="w-full flex flex-col gap-4 h-full">
+      <section class="w-1/2 flex flex-col gap-4 h-full">
         <!-- Create Appointment Form -->
         <form
-          class="card bg-primary text-white rounded-lg p-2 gap-4 w-full h-fit"
+          class="card bg-primary text-white rounded-lg p-2 gap-4 w-full h-2/3"
           id="createAppointmentForm"
           method="post"
         >
@@ -220,17 +220,11 @@
           </div>
         </form>
         <!-- End of Appointment Form -->
-
-        <div
-          class="w-full h-full bg-primary rounded-lg shadow-xl text-white p-2"
-        >
-          <p>Current Appointment...</p>
-        </div>
       </section>
 
       <!-- Appointment List -->
       <div
-        class="w-full bg-primary rounded-xl p-2 text-white shadow-xl flex flex-col h-[40rem]"
+        class="w-2/3 bg-primary rounded-xl p-2 text-white shadow-xl flex flex-col h-[40rem]"
       >
         <section class="flex justify-end w-full">
           <button
@@ -248,10 +242,10 @@
 
         <div class="divider m-0 h-4"></div>
 
-        <div class="overflow-hidden h-full flex">
+        <div class="overflow-hidden h-full w-full flex">
           <section
             id="appointments"
-            class="flex flex-col h-full overflow-auto gap-2 p-2"
+            class="flex flex-col h-full overflow-auto gap-2 p-2 w-full"
           ></section>
         </div>
       </div>
