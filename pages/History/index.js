@@ -36,10 +36,12 @@ const renderTableRow = (data, index) => {
     date.getHours() < 12 ? "AM" : "PM"
   }`
 
+  const divisible = () => (index + 1) % 2 === 0
+
   return `<tr>
-        <th class="bg-primary text-center text-primary-content">${
-          index + 1
-        }</th>
+        <th class="bg-primary text-center ${
+          divisible() ? "bg-base-200" : "bg-primary text-primary-content"
+        }">${index + 1}</th>
         <td>
             <div class="flex flex-col">
                 <span>${data.data.name}</span>
