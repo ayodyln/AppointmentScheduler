@@ -4,11 +4,18 @@ exports.handler = async function (event) {
   const { name, email, date_ts, notes, status } = await JSON.parse(event.body)
 
   const currDate = new Date()
+  const currDateStr = `${currDate.getMonth()}-${currDate.getDate()}-${currDate.getFullYear()}`
+  const currTimeStr = `${currDate.getHours()}:${
+    currDate.getMinutes() < 10
+      ? `0${currDate.getMinutes()}`
+      : currDate.getMinutes()
+  } ${currDate.getHours() < 12 ? "AM" : "PM"}`
   if (currDate.getTime() > date_ts) {
     return {
-      statusCode: 409,
+      statusCode: 400,
       body: JSON.stringify({
-        msg: "Date Not Valid",
+        statusCode: 400,
+        msg: `Date Not Valid. Schedule future appointments, greater than ${currDateStr} ${currTimeStr}`,
       }),
     }
   }
@@ -24,8 +31,8 @@ exports.handler = async function (event) {
     return {
       statusCode: 409,
       body: JSON.stringify({
+        statusCode: 409,
         msg: `Appointment data object already exists on Appointments table.`,
-        data: snapshot[0].data(),
       }),
     }
   }

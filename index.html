@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cmyk">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,9 +20,11 @@
     <title>Appointment Scheduler</title>
   </head>
 
-  <body class="bg-white flex flex-col h-screen w-screen">
+  <body
+    class="text-primary-content flex gap-4 flex-col h-screen w-screen overflow-hidden"
+  >
     <!-- Nav -->
-    <nav class="navbar bg-primary text-white">
+    <nav class="navbar bg-primary text-primary-content font-bold text-lg h-fit">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn fill-white btn-ghost lg:hidden">
@@ -87,11 +89,11 @@
     </nav>
     <!-- End of Nav -->
 
-    <main class="flex gap-4 w-full h-full max-w-4xl m-auto p-2">
+    <main class="flex gap-4 w-full h-full max-w-4xl mx-auto">
       <section class="w-1/2 flex flex-col gap-4 h-full">
         <!-- Create Appointment Form -->
         <form
-          class="card bg-primary text-white rounded-lg p-2 gap-4 w-full h-2/3"
+          class="card bg-base-300 text-base-content rounded-lg gap-2 p-2 w-full h-fit"
           id="createAppointmentForm"
           method="post"
         >
@@ -99,7 +101,7 @@
             <h1 class="text-2xl">Create Appointment</h1>
           </div>
 
-          <section class="flex flex-col gap-2 w-full fill-primary h-full">
+          <section class="flex flex-col gap-2 w-full fill-base-content h-fit">
             <div class="form-control">
               <label class="input-group">
                 <span
@@ -123,7 +125,7 @@
                   name="name"
                   id="name"
                   placeholder="Name..."
-                  class="input w-5/6 text-primary"
+                  class="input w-5/6 text-base-content"
                   required
                 />
               </label>
@@ -148,7 +150,7 @@
                   name="email"
                   id="email"
                   placeholder="joe@email.com"
-                  class="input w-5/6 text-primary"
+                  class="input w-5/6 text-base-content"
                   required
                 />
               </label>
@@ -175,7 +177,7 @@
                   type="date"
                   name="date"
                   id="date"
-                  class="input w-5/6 text-primary"
+                  class="input w-5/6 text-base-content"
                   required
                 />
               </label>
@@ -196,7 +198,7 @@
                 ></span>
 
                 <select
-                  class="input w-5/6 text-primary"
+                  class="input w-5/6 text-base-content"
                   name="time"
                   id="time"
                 ></select>
@@ -205,17 +207,23 @@
 
             <textarea
               name="notes"
-              class="textarea w-full h-32 text-neutral resize-none"
+              class="textarea w-full h-32 text-base-content resize-none"
               placeholder="Notes..."
             ></textarea>
           </section>
           <!-- End of Create Appointment Form -->
 
-          <div class="form-example w-full flex justify-end">
+          <div class="form-example w-full flex justify-end flex-col">
+            <div class="w-full h-28">
+              <p id="ErrorText" class="text-sm">
+                Dates must be scheduled for future dates.
+              </p>
+            </div>
+
             <input
-              class="btn btn-primary bg-white hover:text-white"
+              class="btn btn-primary"
               type="submit"
-              value="Create"
+              value="Create Appointment"
             />
           </div>
         </form>
@@ -224,13 +232,13 @@
 
       <!-- Appointment List -->
       <div
-        class="w-2/3 bg-primary rounded-xl p-2 text-white shadow-xl flex flex-col h-[40rem]"
+        class="w-2/3 bg-base-300 rounded-xl p-2 text-primary flex flex-col h-[99%]"
       >
-        <section class="flex justify-end w-full">
+        <section class="flex justify-end w-full h-fit">
           <button
             id="clearPastDueBtn"
             class="btn btn-ghost btn-sm tooltip"
-            data-tip="Clean List"
+            data-tip="Clean list of all non-upcoming appointments"
           >
             Clear List
           </button>
@@ -239,8 +247,6 @@
           </button>
           <button id="refresh" class="btn btn-ghost btn-sm">Refresh</button>
         </section>
-
-        <div class="divider m-0 h-4"></div>
 
         <div class="overflow-hidden h-full w-full flex">
           <section

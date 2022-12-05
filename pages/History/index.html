@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cmyk">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -81,7 +81,7 @@
     </nav>
 
     <main
-      class="flex flex-col w-full h-full max-w-2xl max-h-[60rem] m-auto my-2 overflow-x-hidden"
+      class="flex flex-col w-full h-full max-w-2xl m-auto my-2 overflow-hidden"
     >
       <div
         id="historyCTAs"
@@ -120,26 +120,20 @@
         </section>
       </div>
 
-      <div id="historyDiv" class="h-full bg-base-300 p-2">
-        <div class="overflow-x-auto h-full">
-          <table class="table table-zebra w-full">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
+      <div id="historyDiv" class="h-full bg-base-300 p-2 overflow-auto">
+        <table class="table table-zebra w-full">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
 
-            <tbody id="tableBody">
-              <th>-</th>
-              <td>-</td>
-              <td>-</td>
-            </tbody>
-          </table>
-        </div>
+          <tbody id="tableBody" class="h-full w-full"></tbody>
+        </table>
       </div>
     </main>
   </body>

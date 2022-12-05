@@ -37,7 +37,9 @@ const renderTableRow = (data, index) => {
   }`
 
   return `<tr>
-        <th class="bg-primary text-center">${index + 1}</th>
+        <th class="bg-primary text-center text-primary-content">${
+          index + 1
+        }</th>
         <td>
             <div class="flex flex-col">
                 <span>${data.data.name}</span>
