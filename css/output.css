@@ -8940,9 +8940,8 @@ html {
   height: 100%;
 }
 
-.h-fit {
-  height: -moz-fit-content;
-  height: fit-content;
+.h-2\/3 {
+  height: 66.666667%;
 }
 
 .h-32 {
@@ -8955,6 +8954,11 @@ html {
 
 .h-4 {
   height: 1rem;
+}
+
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .h-1 {
@@ -9029,22 +9033,6 @@ html {
   height: 30rem;
 }
 
-.h-1\/2 {
-  height: 50%;
-}
-
-.h-2\/3 {
-  height: 66.666667%;
-}
-
-.h-3\/4 {
-  height: 75%;
-}
-
-.h-3\/5 {
-  height: 60%;
-}
-
 .max-h-2 {
   max-height: 0.5rem;
 }
@@ -9080,6 +9068,10 @@ html {
 
 .w-full {
   width: 100%;
+}
+
+.w-1\/2 {
+  width: 50%;
 }
 
 .w-1\/6 {
@@ -9165,10 +9157,6 @@ html {
 
 .w-\[120px\] {
   width: 120px;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .max-w-4xl {
