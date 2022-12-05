@@ -69,7 +69,7 @@ cancelAllBtn.addEventListener("click", async (event) => {
 })
 
 const clearListBtn = document.querySelector("#clearPastDueBtn")
-clearListBtn.addEventListener("click", async (event) => {
+clearListBtn.addEventListener("click", async () => {
   console.log("Clearing all Past Due, Canceled, and Completed.")
 
   const appointments = await getAppointments()

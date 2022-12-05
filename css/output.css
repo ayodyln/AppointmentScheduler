@@ -9143,6 +9143,14 @@ html {
   width: 120px;
 }
 
+.w-12 {
+  width: 3rem;
+}
+
+.w-14 {
+  width: 3.5rem;
+}
+
 .max-w-4xl {
   max-width: 56rem;
 }
@@ -9278,6 +9286,10 @@ html {
 
 .animate-bounce {
   animation: bounce 1s infinite;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .touch-auto {
@@ -13652,6 +13664,11 @@ html {
 
 .\[options\:IParseOptions\] {
   options: IParseOptions;
+}
+
+.hover\:bg-white:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .hover\:fill-primary:hover {
