@@ -35,7 +35,7 @@ export async function renderAppointments() {
 }
 
 async function renderTimeAvailabilityOptions() {
-  const timeOptions = document.querySelector("#time")
+  const timeOptions = document.querySelector(`#time`)
   timeOptions.textContent = ""
   timeOptions.insertAdjacentHTML(
     "beforeend",
